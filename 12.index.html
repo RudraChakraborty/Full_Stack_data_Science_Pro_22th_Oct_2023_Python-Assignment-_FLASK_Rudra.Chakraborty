@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Stock Updates</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Real-Time Stock Updates</h1>
+    <div id="stock-prices">
+        <p><strong>AAPL:</strong> <span id="AAPL">Loading...</span></p>
+        <p><strong>GOOGL:</strong> <span id="GOOGL">Loading...</span></p>
+        <p><strong>TSLA:</strong> <span id="TSLA">Loading...</span></p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+    <script>
+        const socket = io();
+        socket.on('update', (data) => {
+            for (const [stock, price] of Object.entries(data)) {
+                document.getElementById(stock).textContent = `$${price.toFixed(2)}`;
+            }
+        });
+    </script>
+</body>
+</html>

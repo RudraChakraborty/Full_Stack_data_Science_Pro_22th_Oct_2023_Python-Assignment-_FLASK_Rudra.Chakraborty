@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Notifications</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Real-Time Notifications</h1>
+    <div id="notification-box">
+        <p>No notifications yet...</p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        const notificationBox = document.getElementById('notification-box');
+
+        // Listen for notifications
+        socket.on('notification', (data) => {
+            const notification = document.createElement('p');
+            notification.textContent = data.message;
+            notificationBox.appendChild(notification);
+        });
+    </script>
+</body>
+</html>
